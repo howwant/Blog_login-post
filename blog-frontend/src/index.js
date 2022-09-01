@@ -9,6 +9,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/index';
 import rootReducer, { rootSaga } from './modules/index';
 import createSagaMiddleware from 'redux-saga';
 import { check, tempSetUser } from './modules/user';
+import { HelmetProvider } from 'react-helmet-async';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -33,7 +34,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
+    <HelmetProvider>
       <App />
+      </HelmetProvider>
     </BrowserRouter>
   </Provider>
 );
