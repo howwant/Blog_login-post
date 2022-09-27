@@ -17,7 +17,7 @@ const buttonStyle = css`
         background: ${palette.gray[6]};
     }
     ${props =>
-        props.FullWidth &&
+        props.fullWidth &&
             css`
             padding-top: 0.75rem;
             padding-bottom: 0.75rem;

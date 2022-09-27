@@ -41,7 +41,7 @@ const AuthTemplate = ({children}) =>{
                 </div>
                 {children}
             </WhiteBox>
-            </AuthTemplateBlock>
+        </AuthTemplateBlock>
     );
 };
 

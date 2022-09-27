@@ -17,9 +17,6 @@ UserSchema.methods.checkPassword = async function(password) {
     return result;
 }
 
-UserSchema.statics.findByUsername = function(username) {
-    return this.findOne({ username });
-};
 
 UserSchema.methods.serialize = function() {
     const data = this.toJSON();
@@ -40,6 +37,10 @@ UserSchema.methods.generateToken = function() {
         },
     );
     return token;
+};
+
+UserSchema.statics.findByUsername = function(username) {
+    return this.findOne({ username });
 };
 
 const User = mongoose.model('User', UserSchema);

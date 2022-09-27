@@ -23,8 +23,8 @@ const LoginForm = () => {
             changeField({
                 form:'login',
                 key: name,
-                value
-            })
+                value,
+            }),
         );
     };
 

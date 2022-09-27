@@ -9,7 +9,7 @@ const  TEMP_SET_USER = 'user/TEMP_SET_USER'; //새로고침 이후 임시 로그
 const [ CHECK, CHECK_SUCCESS, CHECK_FAILURE ] = createRequestActionTypes(
     'user/CHECK',
 );
-const LOGOUT = 'user/LIGOUT';
+const LOGOUT = 'user/LOGOUT';
 
 export const tempSetUser = createAction(TEMP_SET_USER, user => user);
 export const check = createAction(CHECK);
@@ -53,6 +53,7 @@ export default handleActions(
         [CHECK_SUCCESS] : (state, {payload: user}) => ({
             ...state,
             user,
+            //checkError: error,
         }),
         [CHECK_FAILURE] : (state, {payload: error}) => ({
             ...state,

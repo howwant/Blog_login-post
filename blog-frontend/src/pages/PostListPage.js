@@ -1,4 +1,4 @@
-import HeaderContainer from "../components/common/HeaderContainer";
+import HeaderContainer from "../containers/common/HeaderContainer";
 import PaginationContainer from "../containers/posts/PaginationContainer";
 import PostListContainer from "../containers/posts/PostListContainer";
 

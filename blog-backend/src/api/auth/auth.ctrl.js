@@ -1,7 +1,7 @@
 import Joi from "joi";
 import User from "../../models/user";
 
-export const register = async ctx => {
+export const register = async (ctx) => {
     //Request Body 검증하기
     const schema = Joi.object().keys({
         username: Joi.string()
@@ -73,7 +73,7 @@ export const login = async ctx => {
         ctx.throw(500, e);
     }
 };
-export const check = async ctx => {
+export const check = async (ctx) => {
    const {user} = ctx.state;
    if(!user) {
     //로그인 중 아님
@@ -82,7 +82,7 @@ export const check = async ctx => {
    }
    ctx.body = user;
 };
-export const logout = async ctx => {
+export const logout = async (ctx) => {
     ctx.cookies.set('access_token');
     ctx.status = 204;
 };

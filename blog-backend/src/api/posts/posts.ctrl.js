@@ -4,7 +4,7 @@ import Joi from 'joi';
 import sanitizeHtml from 'sanitize-html'
 
 const { ObjectId } = mongoose.Types;
-const  sanitizeOption = {
+const sanitizeOption = {
   allowedTags: [
     'h1',
     'h2',
@@ -25,7 +25,7 @@ const  sanitizeOption = {
     img: ['src'],
     li: ['class'],
   },
-  allwedSchemes: ['data', 'http'],
+  allowedSchemes: ['data', 'http'],
 };
 
 export const getPostById = async( ctx, next ) => {
@@ -48,7 +48,16 @@ export const getPostById = async( ctx, next ) => {
   }
 };
 
-export const write = async ctx => {
+export const checkOwnPost = (ctx, next) => {
+  const { user, post } = ctx.state;
+  if(post.user._id.toString() !== user._id) {
+    ctx.status = 403;
+    return;
+  }
+  return next();
+};
+
+export const write = async (ctx) => {
   const schema = Joi.object().keys({
     //객체가 다음 필드를 가지고 있음을 검증
     title: Joi.string().required(), //required()가 있으면 필수 항목
@@ -81,8 +90,9 @@ export const write = async ctx => {
   }
 };
 
+
 //html을 없애고 내용이 너무 길면 200자오 제한하는 함수
-const removeHtmlAndShorten = body => {
+const removeHtmlAndShorten = (body) => {
   const filtered = sanitizeHtml(body, {
     allowedTags: [],
   });
@@ -100,7 +110,7 @@ export const list = async ctx => {
     ctx.status = 400;
     return;
   }
-  const { tag, username} = ctx.query;
+  const { tag, username } = ctx.query;
   //tag, username 값이 유효하면 객체안에 넣고, 그렇지 않으면 넣지 않음
   const query = {
     ...(username? {'user.username' : username}: {}),
@@ -111,12 +121,11 @@ export const list = async ctx => {
     .sort({_id: -1})
     .limit(10)
     .skip((page - 1) * 10)
+    .lean()
     .exec();
     const postCount = await Post.countDocuments(query).exec();
     ctx.set('Last-Page', Math.ceil(postCount / 10));
-    ctx.body = posts
-    .map(post => post.toJSON())
-    .map(post => ({
+    ctx.body = posts.map((post) => ({
       ...post,
       body: removeHtmlAndShorten(post.body), 
     }));
@@ -126,14 +135,6 @@ export const list = async ctx => {
 };
 export const read =  ctx => {
   ctx.body = ctx.state.post;
-};
-export const checkOwnPost = (ctx, next) => {
-  const { user, post } = ctx.state;
-  if(post.user._id.toString() !== user._id) {
-    ctx.status = 403;
-    return;
-  }
-  return next();
 };
 
 export const remove = async ctx => {

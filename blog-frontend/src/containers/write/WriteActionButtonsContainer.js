@@ -50,7 +50,7 @@ const WriteActionButtonsContainer = () => {
     return <WriteActionButtons 
     onPublish={onPublish}
     onCancel={onCancel}
-    isEdit={!originalPostId}
+    isEdit={!!originalPostId}
     />;
 };
 

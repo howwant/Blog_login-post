@@ -6,13 +6,14 @@ import { check } from '../../modules/user';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
+    const navigate = useNavigate();
     const [ error, setError ] = useState();
     const dispatch = useDispatch();
     const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
         form: auth.register,
         auth: auth.auth,
         authError: auth.authError,
-        user: user.user
+        user: user.user,
     }));
     //인풋 변경 이벤트 핸들러
     const onChange = e => {
@@ -21,8 +22,8 @@ const RegisterForm = () => {
             changeField({
                 form:'register',
                 key: name,
-                value
-            })
+                value,
+            }),
         );
     };
 
@@ -68,8 +69,6 @@ const RegisterForm = () => {
             dispatch(check());
         }
     }, [auth, authError, dispatch]);
-
-    const navigate = useNavigate();
 
     //user 값이 잘 설정되었는지 확인
     useEffect(()=> {
