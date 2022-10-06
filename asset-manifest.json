@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Blog_login-post_cloneCoding/static/css/main.1ce3d14f.css",
+    "main.js": "/Blog_login-post_cloneCoding/static/js/main.fa415def.js",
+    "index.html": "/Blog_login-post_cloneCoding/index.html",
+    "main.1ce3d14f.css.map": "/Blog_login-post_cloneCoding/static/css/main.1ce3d14f.css.map",
+    "main.fa415def.js.map": "/Blog_login-post_cloneCoding/static/js/main.fa415def.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1ce3d14f.css",
+    "static/js/main.fa415def.js"
+  ]
+}
